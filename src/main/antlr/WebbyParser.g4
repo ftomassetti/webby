@@ -2,8 +2,11 @@ parser grammar WebbyParser;
 
 options { tokenVocab=WebbyLexer; }
 
-webbyFile : elements=topLevelElement+ EOF
+webbyFile : (elements=topLevelElement)* EOF
           ;
+
+newlines : NEWLINE+
+         ;
 
 topLevelElement : constant
                 | variable
@@ -16,7 +19,7 @@ constant : CONST name=ID ASSIGN value=expression
 variable : VAR name=ID ASSIGN value=expression
          ;
 
-route : METHOD path LBRACKET RBRACKET
+route : METHOD path LBRACKET newlines RBRACKET newlines
       ;
 
 path : PATH_STRING

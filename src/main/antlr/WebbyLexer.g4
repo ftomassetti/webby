@@ -11,7 +11,7 @@ CONST              : 'const' ;
 // Literals
 INTLIT             : '0'|[1-9][0-9]* ;
 DECLIT             : '0'|[1-9][0-9]* '.' [0-9]+ ;
-PATH_STRING        : ('/[A-Za-z0-9_]*')+ ;
+PATH_STRING        : ('/'[A-Za-z0-9_]*)+ ;
 STRLIT             : '\'' (~[\r\n\t'])* '\'' ;
 
 // Operators
@@ -25,8 +25,8 @@ RPAREN             : ')' ;
 COMMA              : ',' ;
 LSQUARE            : '[' ;
 RSQUARE            : ']' ;
-LBRACKET           : '[' ;
-RBRACKET           : ']' ;
+LBRACKET           : '{' ;
+RBRACKET           : '}' ;
 
 METHOD             : 'GET' | 'PUT' | 'POST' | 'DELETE ' ;
 
