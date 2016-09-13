@@ -13,9 +13,19 @@ class ParsingTests {
 
     @Test
     fun parseSimpleExample() {
-        val code = """GET /Validate {
-        }
-        """
+        val code = """GET /Validate:
+                     |    reply OK ''
+                     |""".trimMargin("|")
+        val res = WebbyAntlrParserFacade.parse(code)
+        assertEquals(0, res.errors.size, res.errors.joinToString(", "))
+    }
+
+    @Test
+    fun parseRequiredHeader() {
+        val code = """GET /Validate:
+                     |    val token = req header auth-token
+                     |    reply OK ''
+                     |""".trimMargin("|")
         val res = WebbyAntlrParserFacade.parse(code)
         assertEquals(0, res.errors.size, res.errors.joinToString(", "))
     }

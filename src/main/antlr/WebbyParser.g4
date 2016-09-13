@@ -19,11 +19,22 @@ constant : CONST name=ID ASSIGN value=expression
 variable : VAR name=ID ASSIGN value=expression
          ;
 
-route : METHOD path LBRACKET newlines RBRACKET newlines
+route : METHOD path COLON newlines (lines+=routeLine)+
       ;
+
+routeLine : INDENT statement newlines;
 
 path : PATH_STRING
      ;
+
+statement : expression
+          | reply
+          | constant
+          | variable
+          ;
+
+reply : REPLY RESPONSE_TYPE value=expression
+      ;
 
 namedMapLiteral : LBRACKET (entries+=namedMapLiteralEntry ((COMMA | NEWLINE) entries+=namedMapLiteralEntry)* )? RBRACKET
                 ;
@@ -41,6 +52,7 @@ expression : left=expression operator=(DIVISION|ASTERISK) right=expression # bin
            | MINUS expression  #minusExpression
            | namedMapLiteral #namedMapLiteralExpression
            | listLiteral # listLiteralExpression
+           | (REQUIRED)? HEADER name=ID # headerExpression
            | STRLIT # stringLiteral
            | INTLIT # intLiteral
            | DECLIT # decimalLiteral ;

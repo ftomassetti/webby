@@ -2,11 +2,14 @@ lexer grammar WebbyLexer;
 
 // Whitespace
 NEWLINE            : '\r\n' | 'r' | '\n' ;
-WS                 : [\t ]+ -> skip ;
+INDENT             : ('    ')|[\t] ;
+WS                 : [ ] -> skip ;
 
 // Keywords
 VAR                : 'var' ;
-CONST              : 'const' ;
+CONST              : 'val' ;
+REQUIRED           : 'req' ;
+HEADER             : 'header' ;
 
 // Literals
 INTLIT             : '0'|[1-9][0-9]* ;
@@ -27,8 +30,18 @@ LSQUARE            : '[' ;
 RSQUARE            : ']' ;
 LBRACKET           : '{' ;
 RBRACKET           : '}' ;
+COLON              : ':' ;
+REPLY              : 'reply' ;
 
 METHOD             : 'GET' | 'PUT' | 'POST' | 'DELETE ' ;
+RESPONSE_TYPE      : 'OK'
+                   | 'CREATED'
+                   | 'ACCEPTED'
+                   | 'BADREQUEST'
+                   | 'UNAUTHORIZED'
+                   | 'FORBIDDEN'
+                   | 'NOTFOUND'
+                   ;
 
 
 // Identifiers
